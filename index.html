@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="gogo.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+</head>
+
+<body>
+
+  <header>
+    <a href="#" class="navbar-brand">毛小孩星球</a>
+    <input type="checkbox" class="navbar-toggle" id="navbar-toggle">
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="#activity" class="nav-link">近期活動</a></li>
+        <li class="nav-item"><a href="#album" class="nav-link">狗兒相片</a></li>
+        <li class="nav-item"><a href="#adoption" class="nav-link">領養資訊</a></li>
+      </ul>
+    </nav>
+    <label for="navbar-toggle" class="navbar-toggle-label">
+      <span class="hamburger"></span>
+    </label>
+  </header>
+
+  <section id="activity" class="activity">
+    <div class="container">
+      <div class="banner-wrapper">
+        <div class="main-banner background-image">
+          <h1 class="banner-title">帶毛小孩回家吧</h1>
+          <p class="banner-description">Bring them back home</p>
+          <a href="#adoption" class="action">領養去</a>
+        </div>
+        <div class="sub-banner sub-banner-left background-image">
+          <h3 class="banner-title">捐款送玩偶</h3>
+          <p class="banner-description">NTD 100</p>
+          <a href="#" class="action">捐款</a>
+        </div>
+        <div class="sub-banner sub-banner-right background-image">
+          <h3 class="banner-title">捐款送狗骨頭</h3>
+          <p class="banner-description">NTD 300</p>
+          <a href="#" class="action">捐款</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="album">
+    <div id="app">
+      <div class="container">
+        <section id="album">
+          <div class="container">
+            <div class="album-wrapper">
+              <div class="card" v-for='dog in dogInfo.data'>
+                <img :src="dog.dog_img" alt="" class=" card-img" />
+                <div class="card-text">
+                  <h3 class="card-title">{{dog.dog_name}}</h3>
+                  <p class="card-description">{{dog.dog_old}}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+
+  <section id="adoption">
+    <div class="container" id="share">
+      <div class="adoption-wrapper">
+        <img
+          src="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=749&q=80"
+          alt="" class="adoption-image">
+        <div class="adoption-info">
+          <h3 class="title">炫耀你的毛小孩吧!!</h3>
+          <p class="description">你覺得你的毛小孩比們都可愛嗎? 趕快來和大家分享吧!</p>
+          <a class="action" @click="showModal=!showModal">分享去</a>
+          <modal v-if="showModal"
+            style="background-color: #fff;border: 1px solid black;position: fixed;top:200px;left:150px;width: 300px;height: 300px;">
+            <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+            <h3 slot=" header">custom header</h3>
+          </modal>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script type="text/x-template" id="modal-template">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+
+          <div class="modal-header">
+            <slot name="header">
+              default header
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+              default body
+            </slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              default footer
+              <button class="modal-default-button" @click="$emit('close')">
+                OK
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+   </script>
+
+  <footer>
+    <p>毛小孩星球 &copy; 2020 </p>
+  </footer>
+
+  <script src="./index.js"></script>
+</body>
+
+</html>
